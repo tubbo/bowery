@@ -4,19 +4,24 @@ $:.push File.expand_path("../lib", __FILE__)
 require "bowery/version"
 
 # Describe your gem and declare its dependencies:
-Gem::Specification.new do |s|
-  s.name        = "bowery"
-  s.version     = Bowery::VERSION
-  s.authors     = ["TODO: Your name"]
-  s.email       = ["TODO: Your email"]
-  s.homepage    = "TODO"
-  s.summary     = "TODO: Summary of Bowery."
-  s.description = "TODO: Description of Bowery."
+Gem::Specification.new do |gem|
+  gem.name        = "bowery"
+  gem.version     = Bowery::VERSION
+  gem.authors     = ["Tom Scott"]
+  gem.email       = ["tubbo@psychedeli.ca"]
+  gem.homepage    = "http://github.com/tubbo/bowery"
+  gem.summary     = "The missing asset manager for Rails"
+  gem.description = gem.summary
 
-  s.files = Dir["{app,config,db,lib}/**/*"] + ["MIT-LICENSE", "Rakefile", "README.rdoc"]
-  s.test_files = Dir["test/**/*"]
+  gem.files         = `git ls-files`.split($/)
+  gem.executables   = gem.files.grep(%r{^bin/}).map{ |f| File.basename(f) }
+  gem.test_files    = gem.files.grep(%r{^spec/})
+  gem.require_paths = ["lib"]
 
-  s.add_dependency "rails", "~> 3.2.11"
 
-  s.add_development_dependency "sqlite3"
+  gem.add_dependency "rails", "~> 3.2.11"
+  gem.add_dependency 'librarian'
+
+  gem.add_development_dependency "sqlite3"
+  gem.add_development_dependency 'rspec'
 end
