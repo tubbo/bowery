@@ -1,15 +1,17 @@
 # Bowery
 
-Bowery is an asset management system for Rails applications. It
-leverages Bower, Librarian and Sprockets to provide a complete solution
-for managing JavaScript and CSS assets in a Rails app.
+Bowery is a dependency manager for your JavaScript and CSS assets in a
+[Ruby on Rails][rails] app. It is the missing link between
+[Bower][bower], the package manager for the web, and [the asset
+pipeline][sprockets]. Bowery allows you to manage your JavaScript
+dependencies in the same manner as your RubyGem dependencies.
 
 ## Features
 
 - Bundler-style DSL syntax for describing JavaScript dependencies
 - Makes use of the powerful [Bower][bower] package manager to download
   and update asset packages.
-- Hooks into [Sprockets][sprockets-rails] tasks for precompilation to
+- Hooks into [Sprockets][sprockets] tasks for precompilation to
   provide seamless asset fetching in production. You never need to check
   your `vendor/assets/components` directory into the repo ever again!
 
@@ -62,7 +64,7 @@ precompilation. The Rake task `assets:install` will run `bowery
 install` independently, and the `assets:precompile` task is overridden
 to include this new task.
 
-You can also use Bowery as part of a Capistrano deployment by using the
+You can also use Bowery as part of a [Capistrano][cap] deployment by using the
 regular Sprockets Capistrano task, as it will run `rake
 assets:precompile`, which is hooked to provide Bowery support.
 
@@ -97,3 +99,37 @@ Just run the generator!
 ```bash
 $ rails generate bowery:manifest
 ```
+
+This will generate an `application.js` file in
+**app/assets/javascripts** that contain all of your Bowery-installed
+components direct from the Assetfile.
+
+## Development
+
+Bowery was built with [Librarian][librarian], a framework for building
+Bundler-style dependency managers. First demonstrated in
+[Librarian::Chef][librarian-chef], we took their underlying framework
+and reworked it to fit the [Bower][bower] package management tool.
+Bowery is built with Ruby and developed specifically for the [Ruby on
+Rails][rails] web application framework.
+
+We use the full [RSpec][rspec] framework for our testing purposes, as
+well as the `Rails::Engine` test helpers and dummy app for actual
+testing of the gem's effects.
+
+### Contributing
+
+All contributions must be made in the form of a Git or Github pull
+request. Contributions without accompanying tests, especially for bug
+fixes, will not be accepted. Additionally, contributions which fail the
+build on [Travis-CI][travis] will not be accepted.
+
+[bower]: http://twitter.github.io/bower
+[rails]: http://rubyonrails.org
+[sprockets]: http://github.com/sstephenson/sprockets
+[rake]: http://rake.rubyforge.org
+[librarian]: http://github.com/applicationsonline/librarian
+[librarian-chef]: http://github.com/applicationsonline/librarian-chef
+[rspec]: http://rspec.com
+[travis]: http://travis-ci.org
+[cap]: http://capify.org
