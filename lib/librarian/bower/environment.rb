@@ -6,9 +6,8 @@ require "bowery/version"
 module Librarian
   module Bower
     class Environment < Environment
-
       def adapter_name
-        "bower"
+        "asset"
       end
 
       def adapter_version
@@ -26,7 +25,6 @@ module Librarian
           path
         ]
       end
-
     end
   end
 end

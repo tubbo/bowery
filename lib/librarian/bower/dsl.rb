@@ -5,8 +5,6 @@ module Librarian
   module Bower
     class Dsl < Librarian::Dsl
       dependency :component
-      dependency :js
-      dependency :css
 
       source :site => Source::Site
       #source :git => Source::Git
