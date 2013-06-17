@@ -2,9 +2,11 @@
 
 Bowery is a dependency manager for your JavaScript and CSS assets in a
 [Ruby on Rails][rails] app. It is the missing link between
-[Bower][bower], the package manager for the web, and [the asset
+[Bower][bower], an amazing web package manager, and [the asset
 pipeline][sprockets]. Bowery allows you to manage your JavaScript
-dependencies in the same manner as your RubyGem dependencies.
+dependencies in the same manner as your RubyGem dependencies, and fits
+right in with Sprockets to hook into precompilation so you never have to
+store your external JavaScript assets in the repo again.
 
 ## Features
 
