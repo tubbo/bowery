@@ -1,0 +1,8 @@
+endpoint :bower
+
+js 'jquery'
+js 'jquery_ujs'
+
+group :test do
+  # js 'jasmine'
+end

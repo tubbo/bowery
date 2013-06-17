@@ -4,6 +4,7 @@ require 'librarian/bower/source/base'
 module Librarian
   module Bower::Source
     class Site
+      include Librarian::Source::BasicApi
       include Librarian::Bower::Source::Base
       attr_reader :environment, :uri
 

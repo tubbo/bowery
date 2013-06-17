@@ -1,7 +1,7 @@
 require "librarian/environment"
 require "librarian/bower/dsl"
 require "librarian/bower/source"
-require "librarian/bower/version"
+require "bowery/version"
 
 module Librarian
   module Bower
@@ -12,7 +12,7 @@ module Librarian
       end
 
       def adapter_version
-        VERSION
+        Bowery::VERSION
       end
 
       def install_path
