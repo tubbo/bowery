@@ -1,6 +1,7 @@
 require 'librarian/helpers'
 require 'librarian/cli'
 require 'librarian/bower'
+require 'librarian/bower/dsl'
 
 module Bowery
   class CLI < Librarian::Cli

@@ -3,7 +3,7 @@ require 'librarian/bower/source'
 
 module Librarian
   module Bower
-    class DSL < Librarian::Dsl
+    class Dsl < Librarian::Dsl
       dependency :component
       dependency :js
       dependency :css
