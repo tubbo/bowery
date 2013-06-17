@@ -1,8 +1,2 @@
-endpoint :bower
-
-js 'jquery'
-js 'jquery_ujs'
-
-group :test do
-  # js 'jasmine'
-end
+component 'jquery'
+component 'jquery_ujs'

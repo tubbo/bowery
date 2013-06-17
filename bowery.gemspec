@@ -22,6 +22,7 @@ Gem::Specification.new do |gem|
   gem.add_dependency "rails", "~> 3.2.11"
   gem.add_dependency 'librarian'
 
-  gem.add_development_dependency "sqlite3"
+  #gem.add_development_dependency "sqlite3"
   gem.add_development_dependency 'rspec'
+  gem.add_development_dependency 'pry'
 end

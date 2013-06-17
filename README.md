@@ -42,13 +42,8 @@ for asset compilation, and [Bower][bower] for asset fetching.
 To download assets, add them to your Assetfile:
 
 ```ruby
-js 'jquery'
-js 'jquery-ujs'
-css 'foundation'
-
-group :test do
-  js 'jasmine'
-end
+component 'jquery'
+component 'jquery_ujs'
 ```
 
 The `js` and `css` methods both alias to `component`.
@@ -93,3 +88,12 @@ that comes included in the `Rails::Engine` configures Sprockets to read
 assets from this directory. Additionally, the install generator will add
 this directory to `.gitignore` to make sure Bower-fetched assets won't
 be accidentally committed to the repo.
+
+### Generating Sprockets manifests
+
+Bowery is also handy for generating your `application.js` manifest file.
+Just run the generator!
+
+```bash
+$ rails generate bowery:manifest
+```
