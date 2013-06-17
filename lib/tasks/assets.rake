@@ -1,3 +1,4 @@
+# Extra hooks for the asset precompilation Rake tasks.
 namespace :assets do
   desc "Install all assets with Bowery"
   task :install do
