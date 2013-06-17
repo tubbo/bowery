@@ -14,8 +14,7 @@ store your external JavaScript assets in the repo again.
 - Makes use of the powerful [Bower][bower] package manager to download
   and update asset packages.
 - Hooks into [Sprockets][sprockets] tasks for precompilation to
-  provide seamless asset fetching in production. You never need to check
-  your `vendor/assets/components` directory into the repo ever again!
+  provide seamless asset fetching in production.
 
 ## Installation
 
