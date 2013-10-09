@@ -1,7 +1,7 @@
 module Bowery
   class Assetfile
     def initialize(at_path)
-      @path = at_path
+      @file_path = at_path
     end
 
     def self.parse
@@ -17,7 +17,14 @@ module Bowery
     end
 
     def components
-      eval file_contents
+      Components.from file_contents
+    end
+
+    private
+    attr_reader :file_path
+
+    def file_contents
+      @contents ||= IO.read file_path
     end
   end
 end
