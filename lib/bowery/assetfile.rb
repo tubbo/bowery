@@ -1,30 +1,24 @@
+
+# Helper methods for the Assetfile.
+
 module Bowery
-  class Assetfile
-    def initialize(at_path)
-      @file_path = at_path
+  module Assetfile
+    def js name, version, options={}
+      component name, version, options.merge(js: true)
     end
 
-    def self.parse
-      new File.expand_path('./Assetfile')
+    def css name, version, options={}
+      component name, version, options.merge(css: true)
     end
 
-    def javascripts
-      components.where js: true
-    end
-
-    def stylesheets
-      components.where css: true
-    end
-
-    def components
-      Components.from file_contents
+    def component name, version, options={}
+      attributes = options.merge name: name, version: version
+      components << Component.new(attributes)
     end
 
     private
-    attr_reader :file_path
-
-    def file_contents
-      @contents ||= IO.read file_path
+    def components
+      @components ||= Components.new
     end
   end
 end

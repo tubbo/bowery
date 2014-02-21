@@ -2,15 +2,17 @@
 
 module Bowery
   class Manifest
-    def initialize for_type, and_assets, and_options
-      @type = for_type
-      @assets = and_assets
-      @name = and_options[:name]
-      @path_prefix = and_options[:path]
-    end
+    include ActiveModel::Model
 
-    def path
-      @path ||= "#{@path_prefix}/#{@name}.#{extension}"
+    attr_accessor :name, :path, :type, :components
+
+    validates :name, presence: true
+    validates :path, presence: true
+    validates :type, presence: true
+    validates :components, presence: true
+
+    def absolute_path
+      @abs_path ||= "#{path}/#{type}/#{name}.#{extension}"
     end
 
     def extension
@@ -44,22 +46,25 @@ module Bowery
 
     protected
     def requires
-      @requires = relevant_assets.reduce("") do |reqs,asset|
+      @requires = relevant_components.reduce("") do |reqs,asset|
         reqs += "#{require_prefix} #{asset.name}"
       end
     end
 
     private
     def require_prefix
-      if type == 'stylesheets'
+      case type
+      when 'stylesheets'
         "*="
-      else
+      when 'javascripts'
         "//="
+      else
+        ""
       end
     end
 
-    def relevant_assets
-      assets.send type
+    def relevant_components
+      components.select { |component| component.send("#{extension}?") }
     end
   end
 end

@@ -1,32 +1,35 @@
 require 'thor'
+require 'bowery/bower'
 
 # The executable that installs Bower assets.
 
 module Bowery
   class Executable < Thor
     include Thor::Actions
+    include Bower
+    include Assetfile
 
     desc :install, "Install assets from Bower unless already installed"
     def install
-      assets.each do |asset|
-        resolve asset
-      end
+      load './Assetfile'
+      components.install
+      say "All assets have been installed."
     end
 
     desc :update, "Update all assets to version specified in Assetfile"
     def update
-      assets.reload
-      assets.each do |asset|
-        resolve asset
-      end
+      load './Assetfile'
+      components.update
+      say "All assets have been updated."
     end
 
     desc :export, "Export manifest files"
-    method_option :name, default: 'app/assets'
-    method_option :path, default: 'application'
+    method_option :name, default: 'application'
+    method_option :path, default: 'app/assets'
     def export
+      load './Assetfile'
       %w(stylesheets javascripts).each do |type|
-        manifest = Manifest.new type, assets, options
+        manifest = Manifest.new type, components, options
 
         if manifest.save
           say "Saved #{type} manifest to #{manifest.path}."
@@ -41,10 +44,9 @@ module Bowery
       if asset.installed?
         say "Using #{asset.name} (#{asset.version})..."
       else
-        run "bower install #{asset.name} -v=#{asset.version}"
+        say "Installing #{asset.name} (#{asset.version})..."
+        bower :install, asset.name, asset.version
       end
-
-      say "Installing #{asset.name} (#{asset.version})..."
     end
 
     def assets

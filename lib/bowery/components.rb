@@ -4,12 +4,12 @@ module Bowery
   class Components
     include Enumerable
 
-    def initialize text
-      @text = text
+    def initialize
+      @collection = []
     end
 
-    def self.from assetfile_contents
-      new assetfile_contents
+    def << component
+      @collection << component
     end
 
     def each
@@ -24,13 +24,9 @@ module Bowery
       end
     end
 
-    private
-    def collection
-      eval text
-    end
-
-    def component name
-      @collection += Component.find(name)
+    def method_missing method, *arguments
+      raise NoMethodError unless collection.first.respond_to? method
+      each { |component| component.send method, *arguments }
     end
   end
 end
