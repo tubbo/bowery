@@ -13,6 +13,7 @@ module Bowery
     def install
       load './Assetfile'
       components.install
+      BowerConfig.write components
       say "All assets have been installed."
     end
 
@@ -20,6 +21,7 @@ module Bowery
     def update
       load './Assetfile'
       components.update
+      BowerConfig.write components
       say "All assets have been updated."
     end
 

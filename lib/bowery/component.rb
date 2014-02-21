@@ -13,14 +13,20 @@ module Bowery
     # a local path.
     def install
       return if path.present?
-      system "bower install #{package} -v=#{version}"
+      system "bower install #{package}##{version}"
+    end
+
+    # Uninstall this Component with Bower.
+    def uninstall
+      return if path.present?
+      system "bower uninstall #{package}"
     end
 
     # Update to the latest version of this Component with Bower unless
     # it is being managed with a local path.
     def update
       return if path.present?
-      system "bower update #{package}"
+      uninstall and install
     end
 
     # Should we include this in the javascripts manifest?

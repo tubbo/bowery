@@ -28,5 +28,11 @@ module Bowery
       raise NoMethodError unless collection.first.respond_to? method
       each { |component| component.send method, *arguments }
     end
+
+    def as_bower_dependencies
+      reduce({}) do |dependencies, asset|
+        dependencies.merge "#{asset.name}" => "#{asset.version}"
+      end
+    end
   end
 end
