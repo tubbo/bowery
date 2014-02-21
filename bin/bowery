@@ -1,6 +1,9 @@
 #!/usr/bin/env ruby
+#
+# Bowery executable binstub
 
-require 'bundler/setup'
-require 'bowery'
+$:.unshift File.expand_path('./lib')
+
+require 'bowery/executable'
 
 Bowery::Executable.start

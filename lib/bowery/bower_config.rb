@@ -2,7 +2,7 @@ require 'json'
 
 module Bowery
   class BowerConfig
-    include ActiveModel::Model
+    #include ActiveModel::Model
 
     attr_accessor :attributes, :components
 

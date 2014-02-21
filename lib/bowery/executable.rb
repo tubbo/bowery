@@ -1,5 +1,7 @@
 require 'thor'
 require 'bowery/bower'
+require 'bowery/assetfile'
+require 'bowery/bower_config'
 
 # The executable that installs Bower assets.
 
@@ -25,7 +27,7 @@ module Bowery
       say "All assets have been updated."
     end
 
-    desc :export, "Export manifest files"
+    desc :export, "Export Sprockets manifest files for installed assets"
     method_option :name, default: 'application'
     method_option :path, default: 'app/assets'
     def export
