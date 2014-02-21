@@ -1,3 +1,4 @@
+require 'bowery/model'
 
 # Components are created from the `component`, `js`, and `css`
 # statements in the Assetfile. They are used to install and update Bower
@@ -5,7 +6,7 @@
 
 module Bowery
   class Component
-    include ActiveModel::Model
+    include Model
 
     attr_accessor :name, :version, :js, :css, :path, :git, :github
 

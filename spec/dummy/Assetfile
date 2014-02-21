@@ -1,6 +1,3 @@
 source :bower
 
 js 'jquery'
-js 'ember'
-
-css 'foundation'

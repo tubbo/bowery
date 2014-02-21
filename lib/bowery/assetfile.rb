@@ -1,17 +1,23 @@
+require 'bowery/components'
+require 'bowery/component'
 
 # Helper methods for the Assetfile.
 
 module Bowery
   module Assetfile
-    def js name, version, options={}
+    def source api
+      return if api == :bower
+    end
+
+    def js name, version='', options={}
       component name, version, options.merge(js: true)
     end
 
-    def css name, version, options={}
+    def css name, version='', options={}
       component name, version, options.merge(css: true)
     end
 
-    def component name, version, options={}
+    def component name, version='', options={}
       attributes = options.merge name: name, version: version
       components << Component.new(attributes)
     end

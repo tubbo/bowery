@@ -1,5 +1,3 @@
-require 'enumerable'
-
 module Bowery
   class Components
     include Enumerable
