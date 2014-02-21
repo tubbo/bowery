@@ -64,7 +64,7 @@ module Bowery
     end
 
     def relevant_components
-      components.select { |component| component.send("#{extension}?") }
+      components.where extension => true
     end
   end
 end

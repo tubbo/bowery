@@ -30,16 +30,6 @@ module Bowery
       uninstall and install
     end
 
-    # Should we include this in the javascripts manifest?
-    def js?
-      @js || false
-    end
-
-    # Should we include this in the stylesheets manifest?
-    def css?
-      @css || false
-    end
-
     # The package name of this Component, being fetched by Bower.
     def package
       case
