@@ -14,13 +14,13 @@ module Bowery
     # a local path.
     def install
       return if path.present?
-      system "bower install #{package}##{version}"
+      system "bower install #{id}"
     end
 
     # Uninstall this Component with Bower.
     def uninstall
       return if path.present?
-      system "bower uninstall #{package}"
+      system "bower uninstall #{id}"
     end
 
     # Update to the latest version of this Component with Bower unless
@@ -39,6 +39,15 @@ module Bowery
         git
       else
         name
+      end
+    end
+
+    # Package identifier, usually consisting of the 'name#version'.
+    def id
+      if name == package
+        "#{package}##{version}"
+      else
+        "#{name}=#{package}##{version}"
       end
     end
   end

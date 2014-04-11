@@ -2,6 +2,7 @@ require 'json'
 require 'rails'
 
 module Bowery
+  # Responsible for writing out the Bower config files.
   class BowerConfig
     include ActiveModel::Model
 
@@ -13,23 +14,43 @@ module Bowery
       config
     end
 
+    # Write all Bower config files.
     def write
-      File.write "bower.json", contents.to_json
+      write_bower_json and write_bower_rc
     end
 
-    def contents
-      #require 'debug'; debugger
+    protected
+    def write_bower_json
+      File.write "bower.json", json_contents.to_json
+    end
+
+    def write_bower_rc
+      File.write ".bowerrc", rc_contents.to_json
+    end
+
+    def json_contents
       {
-        name: 'test',
+        name: current_folder,
         version: '0.0.1',
         main: '',
         ignore: [
           '.jshintrc',
           '**/*.txt'
         ],
-        dependencies: components,
+        dependencies: components.to_bower,
         devDependencies: {}
       }
+    end
+
+    def rc_contents
+      {
+        directory: "vendor/components"
+      }
+    end
+
+    private
+    def current_folder
+      File.basename Dir.pwd
     end
   end
 end

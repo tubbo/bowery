@@ -13,7 +13,7 @@ module Bowery
     end
 
     def each
-      each { |component| yield component }
+      @collection.each { |component| yield component }
     end
 
     def where options
@@ -21,6 +21,12 @@ module Bowery
         options.keys.reduce(false) do |res,opt|
           res ||= component.send(opt) == options[opt]
         end
+      end
+    end
+
+    def to_bower
+      reduce({}) do |bower_dependencies, component|
+        bower_dependencies.merge component.name => "#{component.version}"
       end
     end
   end
