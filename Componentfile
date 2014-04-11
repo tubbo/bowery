@@ -1,3 +1,4 @@
 source :bower
 
 js 'jquery'
+css 'foundation'

@@ -10,6 +10,11 @@ module Bowery
 
     attr_accessor :name, :version, :js, :css, :path, :git, :github
 
+    def initialize(with_attributes={})
+      super
+      puts usage_msg
+    end
+
     # Install this Component with Bower unless it is being managed with
     # a local path.
     def install
@@ -49,6 +54,16 @@ module Bowery
       else
         "#{name}=#{package}##{version}"
       end
+    end
+
+    private
+    def usage_msg
+      return "Using #{name} at #{version}..." if has_version?
+      "Using #{name}..."
+    end
+
+    def has_version?
+      (not version.nil?) && (not version.empty?)
     end
   end
 end
