@@ -18,7 +18,7 @@ Gem::Specification.new do |gem|
   gem.test_files    = gem.files.grep(%r{^spec/})
   gem.require_paths = ["lib"]
 
-  gem.add_dependency "rails", '~> 4.1'
+  gem.add_dependency "rails"
   gem.add_dependency 'thor'
 
   gem.add_development_dependency "sqlite3"
