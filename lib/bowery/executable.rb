@@ -16,7 +16,8 @@ module Bowery
       read_component_file!
       configure
       run 'bower install' unless options[:dry_run]
-      say "Bower components have been installed to ./vendor/components"
+      say set_color("Bower has installed your components.", :green)
+      say set_color("They have been installed to ./vendor/components", :green)
     end
 
     desc :configure, "Write the bower.json file from components"
