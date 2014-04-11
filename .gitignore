@@ -17,3 +17,5 @@ test/dummy/vendor/components
 test/dummy/Componentfile
 test/dummy/.bowerrc
 test/dummy/bower.json
+
+spec/dummy/log/*.log
