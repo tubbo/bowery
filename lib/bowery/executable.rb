@@ -24,12 +24,7 @@ module Bowery
       eval assetfile
       %w(stylesheets javascripts).each do |type|
         manifest = Manifest.new type, components, options
-
-        if manifest.save
-          say "Saved #{type} manifest to #{manifest.path}."
-        else
-          say "Error saving #{type} manifest."
-        end
+        create_file manifest.path, manifest.contents
       end
     end
 
