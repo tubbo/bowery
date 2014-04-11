@@ -16,19 +16,11 @@ module Bowery
 
     # Write all Bower config files.
     def write
-      write_bower_json and write_bower_rc
+      File.write "bower.json", contents.to_json
     end
 
     protected
-    def write_bower_json
-      File.write "bower.json", json_contents.to_json
-    end
-
-    def write_bower_rc
-      File.write ".bowerrc", rc_contents.to_json
-    end
-
-    def json_contents
+    def contents
       {
         name: current_folder,
         version: '0.0.1',
@@ -39,12 +31,6 @@ module Bowery
         ],
         dependencies: components.to_bower,
         devDependencies: {}
-      }
-    end
-
-    def rc_contents
-      {
-        directory: "vendor/components"
       }
     end
 
