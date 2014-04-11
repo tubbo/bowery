@@ -31,7 +31,7 @@ $ bundle install
 $ rails generate bowery:install
 ```
 
-This should create an `Assetfile` at the root of your repo, as well as
+This should create an `Componentfile` at the root of your repo, as well as
 some support files for telling Bower where to download components.
 
 ## Usage
@@ -41,16 +41,23 @@ manage assets. Under the hood, it leverages a number of lower-level
 components such as [Rake][rake] for task running, [Sprockets][sprockets]
 for asset compilation, and [Bower][bower] for asset fetching.
 
-### Installing assets
+### Installing components
 
-To download assets, add them to your Assetfile:
+To download Bower components with Bowery, add them to your Componentfile:
 
 ```ruby
 component 'jquery'
-component 'jquery_ujs'
+component 'foundation'
 ```
 
-The `js` and `css` methods both alias to `component`.
+The **js** and **css** directives also alias to **component**. They do
+not differ from simply using **component**, so both are interchangeable
+depending on your personal aesthetic wishes.
+
+```ruby
+js 'jquery'
+css 'foundation'
+```
 
 Once you're done, run the following command from the root of your app to
 install your assets:
@@ -58,6 +65,62 @@ install your assets:
 ```bash
 $ bowery install
 ```
+
+### Configuring component options
+
+Components can be given various options, such as configuring the Git repo
+by which to pull content from, or specifying a `:path` to use a codebase
+on the local disk.
+
+#### Manifest Configuration
+
+You can specify how you want the component to be required into your app
+with the **:require** option, like so:
+
+```ruby
+css 'foundation', require: { css: false, js: 'javascripts/foundation' }
+```
+
+Note that all paths are prepended with the component path, so this will
+actually look like the following in the manifest:
+
+```js
+//= require ./foundation/javascripts/foundation
+```
+
+By default, assets will be required like so in the JS manifest:
+
+```js
+//= require ./foundation/foundation
+```
+
+And like this in the CSS manifest:
+
+```css
+/**
+ *= require ./foundation/foundation
+ */
+```
+
+When we passed `css: false` into the require options, it dictated to
+Bowery that we're not going to need a Sprockets directive for this
+component's CSS. Instead, we'll use Sass' `@import` directive so that we
+can override certain Foundation settings. Sass `@import` directives are
+not supported by Bowery at this time.
+
+#### Source Configuration
+
+The following top-level options are available to configure the source by
+which you wish to retrieve this asset. By default, if none of these
+options are specified, Bower will attempt to simply download the most
+recent version of the package that's currently on the registry
+
+- **:path** - Pass a relative or absolute path to specify that this
+  component can be found on the local disk.
+- **:git** - Specify an alternative Git repository, like your own fork,
+  rather than the one on the Bower registry.
+- **:github** - A shorthand alias to :git that will expand
+  ':user_name/:repo_name' into a GitHub HTTPS URL.
 
 ### Precompiling assets in production
 
@@ -79,7 +142,7 @@ $ bowery update
 ```
 
 This basically rebuilds the lockfile with the versions specified in
-Assetfile. You can also update a single component by running:
+Componentfile. You can also update a single component by running:
 
 ```bash
 $ bowery update jquery
@@ -104,7 +167,7 @@ $ rails generate bowery:manifest
 
 This will generate an `application.js` file in
 **app/assets/javascripts** that contain all of your Bowery-installed
-components direct from the Assetfile. You can also specify `--path` to
+components direct from the Componentfile. You can also specify `--path` to
 customize where this file is stored and what it is called. Defaults to
 **app/assets/javascripts/application.{js|css}**.
 

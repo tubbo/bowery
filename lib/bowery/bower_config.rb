@@ -1,8 +1,9 @@
 require 'json'
+require 'rails'
 
 module Bowery
   class BowerConfig
-    #include ActiveModel::Model
+    include ActiveModel::Model
 
     attr_accessor :attributes, :components
 
@@ -17,15 +18,16 @@ module Bowery
     end
 
     def contents
+      #require 'debug'; debugger
       {
-        name: File.basename(Rails.root),
+        name: 'test',
         version: '0.0.1',
         main: '',
         ignore: [
           '.jshintrc',
           '**/*.txt'
         ],
-        dependencies: components.as_bower_dependencies,
+        dependencies: components,
         devDependencies: {}
       }
     end

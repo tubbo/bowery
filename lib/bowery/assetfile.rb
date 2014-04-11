@@ -1,13 +1,13 @@
 require 'bowery/components'
 require 'bowery/component'
 
-# The Assetfile DSL. These methods are mixed in and used by the
-# Assetfile to build the `components` collection used to actually
+# The Componentfile DSL. These methods are mixed in and used by the
+# Componentfile to build the `components` collection used to actually
 # install Bower assets. These methods create Component classes, and are
 # shoveled into the big collection.
 
 module Bowery
-  module Assetfile
+  module Componentfile
     # Specify an alternative API other than the official Bower registry.
     def source api
       return if api == :bower
