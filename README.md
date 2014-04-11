@@ -28,7 +28,7 @@ Then, run the generator:
 
 ```bash
 $ bundle install
-$ rails generate bowery:install
+$ bowery init
 ```
 
 This should create an `Componentfile` at the root of your repo, as well as
