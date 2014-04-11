@@ -46,15 +46,6 @@ for asset compilation, and [Bower][bower] for asset fetching.
 To download Bower components with Bowery, add them to your Componentfile:
 
 ```ruby
-component 'jquery'
-component 'foundation'
-```
-
-The **js** and **css** directives also alias to **component**. They do
-not differ from simply using **component**, so both are interchangeable
-depending on your personal aesthetic wishes.
-
-```ruby
 js 'jquery'
 css 'foundation'
 ```
