@@ -1,7 +1,7 @@
 require 'thor'
-require 'bowery/assetfile'
+require 'bowery/componentfile'
 require 'bowery/bower_config'
-require 'pry'
+require 'bowery/manifest'
 
 # The executable that installs Bower assets.
 
@@ -9,6 +9,12 @@ module Bowery
   class Executable < Thor
     include Thor::Actions
     include Componentfile
+
+    # The directory where we're storing templates for the files that are
+    # generated.
+    def self.source_root
+      File.expand_path '../templates', __FILE__
+    end
 
     desc :install, "Install assets from Bower unless already installed"
     method_option :dry_run, default: false
@@ -29,13 +35,12 @@ module Bowery
     method_option :name, default: 'application'
     method_option :path, default: 'app/assets'
     def export
-      read_component_file! and export_manifests
+      read_component_file! and export_manifests(options)
     end
 
     desc :list, "List all assets managed by Bower"
     def list
-      read_component_file!
-      components.each { |component| say "#{name} (#{version})" }
+      read_component_file! and list_components
     end
 
     desc :init, "Set up this project for use with Bowery"
@@ -45,11 +50,6 @@ module Bowery
       template '.bowerrc'
     end
 
-    # The directory where we're storing templates for the files that are
-    # generated.
-    def self.source_root
-      File.expand_path '../templates'
-    end
 
     private
     def read_component_file!
@@ -72,9 +72,13 @@ module Bowery
 
     def export_manifests(options)
       %w(stylesheets javascripts).each do |type|
-        manifest = Manifest.new type, components, options
+        manifest = Manifest.new options.merge(type: type)
         create_file manifest.path, manifest.contents
       end
+    end
+
+    def list_components
+      components.each { |component| say "#{name} (#{version})" }
     end
   end
 end

@@ -10,28 +10,23 @@ module Bowery
 
     attr_accessor :name, :version, :js, :css, :path, :git, :github
 
-    def initialize(with_attributes={})
-      super
-      puts usage_msg
-    end
-
     # Install this Component with Bower unless it is being managed with
     # a local path.
     def install
-      return if path.present?
-      system "bower install #{id}"
+      system "bower install #{id}" unless path.present?
+      puts "Installed #{name} at #{version}"
+      $?.success?
     end
 
     # Uninstall this Component with Bower.
     def uninstall
-      return if path.present?
-      system "bower uninstall #{id}"
+      system "bower uninstall #{id}" unless path.present?
+      $?.success?
     end
 
     # Update to the latest version of this Component with Bower unless
     # it is being managed with a local path.
     def update
-      return if path.present?
       uninstall and install
     end
 
